@@ -68,6 +68,14 @@ Route::post('/contact-send', [ContactController::class, 'send'])->name('contact.
 Route::get('/dashboard',[DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 
+Route::get('/privacy-policy', function () {
+    return view('customer.PrivacyPolicy');
+})->name('privacy.policy');
+
+Route::get('/terms-conditions', function () {
+    return view('customer.Termsconditions');
+})->name('terms.conditions');
+
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     // Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
 
