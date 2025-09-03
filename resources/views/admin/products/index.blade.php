@@ -18,7 +18,7 @@
         <th class="p-3">#</th>
         <th class="p-3">Image</th>
         <th class="p-3">Title</th>
-        <th class="p-3">Category</th>
+        <th class="p-3">Description</th>
         <th class="p-3">Status</th>
         <th class="p-3">Actions</th>
       </tr>
@@ -29,13 +29,14 @@
         <td class="p-3">{{ $item->id }}</td>
         <td class="p-3">
           @if($item->image)
-            <img src="{{ asset('storage/'.$item->image) }}" alt="" class="h-12 w-12 object-cover rounded">
+             <img src="{{ asset('storage/' . $item->image) }}" alt="Product Image" class="h-12 w-12 object-cover rounded">
+            <div class="text-xs text-gray-500 break-all">{{ $item->image }}</div>
           @else
             <div class="h-12 w-12 bg-gray-200 rounded"></div>
           @endif
         </td>
         <td class="p-3 font-medium">{{ $item->title }}</td>
-        <td class="p-3">{{ $item->category }}</td>
+        <td class="p-3">{{ $item->description }}</td>
         <td class="p-3">
           <form action="{{ route('admin.products.toggle-status',$item) }}" method="POST">
             @csrf @method('PATCH')
@@ -54,7 +55,7 @@
         </td>
       </tr>
     @empty
-      <tr><td class="p-3" colspan="6">No products found.</td></tr>
+      <tr><td class="p-3" colspan="5">No products found.</td></tr>
     @endforelse
     </tbody>
   </table>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,8 +13,10 @@ class ProductController extends Controller
         $products = Product::latest()->paginate(10);
         return view('admin.products.index', compact('products'));
     }
-    public function product(){
+    public function product()
+    {
         $products = Product::latest()->paginate(10);
+        // dd($products);
         return view('customer.product', compact('products'));
     }
 
@@ -28,7 +31,6 @@ class ProductController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'category' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'status' => 'nullable|boolean',
         ]);
@@ -52,7 +54,6 @@ class ProductController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'category' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'status' => 'nullable|boolean',
         ]);

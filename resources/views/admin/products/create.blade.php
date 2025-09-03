@@ -18,10 +18,7 @@
     <label class="block text-sm font-medium">Title *</label>
     <input name="title" value="{{ old('title') }}" class="mt-1 w-full border rounded p-2" required>
   </div>
-  <div>
-    <label class="block text-sm font-medium">Category</label>
-    <input name="category" value="{{ old('category') }}" class="mt-1 w-full border rounded p-2">
-  </div>
+
   <div>
     <label class="block text-sm font-medium">Description</label>
     <textarea name="description" rows="4" class="mt-1 w-full border rounded p-2">{{ old('description') }}</textarea>
