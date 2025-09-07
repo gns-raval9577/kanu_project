@@ -8,6 +8,7 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProjectGalleryController;
+use App\Http\Controllers\CustomerProjectGalleryController;
 use App\Http\Controllers\FrontendController;
 
 Route::get('/', [FrontendController::class, 'home'])->name('home');
@@ -45,6 +46,9 @@ Route::get('/booking', function () {
 Route::get('/gallery', function () {
     return view('customer.gallery');
 })->name('gallery');
+
+Route::get('/project-gallery', [CustomerProjectGalleryController::class, 'index'])->name('projectgallery');
+Route::get('/project-gallery/{projectgallery}', [CustomerProjectGalleryController::class, 'show'])->name('projectgallery.show');
 
 Route::get('/guides', function () {
     return view('customer.guides');

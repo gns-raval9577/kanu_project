@@ -42,7 +42,7 @@
                                 <a href="{{ route('404') }}" class="dropdown-item">404 Page</a>
                             </div>
                         </div> -->
-                        <a href="{{ route('gallery') }}" class="nav-item nav-link">Our Gallery</a>
+                        <a href="{{ route('projectgallery') }}" class="nav-item nav-link">Our projects (Gallery)</a>
                         <a href="{{ route('contact') }}" class="nav-item nav-link">Contact</a>
                     </div>
                     

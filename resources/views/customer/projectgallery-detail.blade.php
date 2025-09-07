@@ -1,8 +1,9 @@
 @extends('customer.layouts.app')
 
-@section('title', 'Project Gallery')
+@section('title', $projectgallery->title . ' - Project Gallery')
 
 @section('content')
+
 
 
 <!-- Spinner Start -->
@@ -23,7 +24,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="fa fa-bars"></span>
         </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
                 <a href="{{ route('home') }}" class="nav-item nav-link ">Home</a>
                 <a href="{{ route('about') }}" class="nav-item nav-link ">About</a>
@@ -54,46 +55,70 @@
 <!-- Header Start -->
 <div class="container-fluid bg-breadcrumb">
     <div class="container text-center py-5" style="max-width: 900px;">
-        <h3 class="text-white display-3 mb-4">Project Gallery</h3>
+        <h3 class="text-white display-3 mb-4">{{ $projectgallery->title }}</h3>
         <ol class="breadcrumb justify-content-center mb-0">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-            <li class="breadcrumb-item active text-white">Project Gallery</li>
+            <li class="breadcrumb-item"><a href="{{ route('projectgallery') }}">Project Gallery</a></li>
+            <li class="breadcrumb-item active text-white">{{ $projectgallery->title }}</li>
         </ol>
     </div>
 </div>
 <!-- Header End -->
 
-<!-- Gallery Start -->
-<div class="container-fluid gallery py-5">
+<!-- Project Details Start -->
+<div class="container-fluid py-5">
     <div class="container py-5">
-        <div class="text-center mx-auto mb-5" style="max-width: 800px;">
-            <h5 class="section-title px-3">Our Projects</h5>
-            <h1 class="mb-4">Explore Our Latest Projects</h1>
-        </div>
-
         <div class="row g-4">
-            @foreach($galleries as $gallery)
-            <div class="col-lg-4 col-md-6">
-                <div class="gallery-item h-100">
-                    <img src="{{ asset('storage/' . $gallery->main_image) }}" class="img-fluid w-100 h-100 rounded" alt="{{ $gallery->title }}" style="object-fit: cover;">
-                    <div class="gallery-overlay">
-                        <div class="gallery-content">
-                            <h5 class="text-white">{{ $gallery->title }}</h5>
-                            <p class="text-white-50">{{ Str::limit($gallery->description, 100) }}</p>
-                            <a href="{{ route('projectgallery.show', $gallery) }}" class="btn btn-primary">View Details</a>
-                        </div>
+            <!-- Main Image -->
+            <div class="col-lg-8">
+                <div class="project-main-image">
+                    <img src="{{ asset('storage/' . $projectgallery->main_image) }}" class="img-fluid w-100 rounded" alt="{{ $projectgallery->title }}" style="height: 400px; object-fit: cover;">
+                </div>
+            </div>
+
+            <!-- Project Info -->
+            <div class="col-lg-4">
+                <div class="project-info">
+                    <h2 class="mb-4">{{ $projectgallery->title }}</h2>
+                    @if($projectgallery->description)
+                    <p class="mb-4">{{ $projectgallery->description }}</p>
+                    @endif
+                    <div class="project-meta">
+                        <p><strong>Status:</strong> {{ $projectgallery->status ? 'Active' : 'Inactive' }}</p>
+                        <p><strong>Created:</strong> {{ $projectgallery->created_at->format('M d, Y') }}</p>
+                        <p><strong>Images:</strong> {{ $projectgallery->images->count() }}</p>
                     </div>
                 </div>
             </div>
-            @endforeach
         </div>
 
-        @if($galleries->hasPages())
-        <div class="d-flex justify-content-center mt-5">
-            {{ $galleries->links() }}
+        <!-- Sub Images Gallery -->
+        @if($projectgallery->images->count() > 0)
+        <div class="row g-4 mt-4">
+            <div class="col-12">
+                <h3 class="mb-4">Project Images</h3>
+                <div class="row g-3">
+                    @foreach($projectgallery->images as $image)
+                    <div class="col-md-4 col-sm-6">
+                        <div class="gallery-item">
+                            <img src="{{ asset('storage/' . $image->image) }}" class="img-fluid w-100 rounded" alt="Project Image" style="height: 200px; object-fit: cover;">
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
         @endif
+
+        <!-- Back Button -->
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <a href="{{ route('projectgallery') }}" class="btn btn-primary px-4 py-2">
+                    <i class="fa fa-arrow-left me-2"></i>Back to Gallery
+                </a>
+            </div>
+        </div>
     </div>
 </div>
-<!-- Gallery End -->
+<!-- Project Details End -->
 @endsection
