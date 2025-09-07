@@ -8,10 +8,9 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProjectGalleryController;
+use App\Http\Controllers\FrontendController;
 
-Route::get('/', function () {
-    return view('customer.home');
-})->name('home');
+Route::get('/', [FrontendController::class, 'home'])->name('home');
 
 Route::get('/about', function () {
     return view('customer.about');
