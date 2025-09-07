@@ -27,7 +27,7 @@
                         <a href="{{ route('home') }}" class="nav-item nav-link ">Home</a>
                         <a href="{{ route('about') }}" class="nav-item nav-link ">About</a>
                         <!-- <a  href="{{ route('services') }}" class="nav-item nav-link">Services</a> -->
-                        <a href="{{ route('packages') }}" class="nav-item nav-link">Packages</a>
+                        
                         <a href="{{ route('testimonial') }}"class="nav-item nav-link active">Testimonial</a>
                         <a  href="{{ route('product') }}" class="nav-item nav-link">Product</a>
                         <!-- <div class="nav-item dropdown">

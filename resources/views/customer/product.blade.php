@@ -25,7 +25,7 @@
                         <a href="{{ route('home') }}" class="nav-item nav-link ">Home</a>
                         <a href="{{ route('about') }}" class="nav-item nav-link ">About</a>
                         <!-- <a  href="{{ route('services') }}" class="nav-item nav-link">Services</a> -->
-                                                <a href="{{ route('packages') }}" class="nav-item nav-link">Packages</a>
+                                                
                         <a href="{{ route('testimonial') }}"class="nav-item nav-link">Testimonial</a>
                         <a  href="{{ route('product') }}" class="nav-item nav-link active">Product</a>
                         <!-- <div class="nav-item dropdown">
@@ -67,7 +67,7 @@
             <div class="container py-5">
                 <div class="mx-auto text-center mb-5" style="max-width: 900px;">
                     <h5 class="section-title px-3">Our Product</h5>
-                    <h1 class="mb-4">Popular Travel Products</h1>
+                    <h1 class="mb-4">Popular  Products</h1>
                     <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti deserunt tenetur sapiente atque. Magni non explicabo beatae sit, vel reiciendis consectetur numquam id similique sunt error obcaecati ducimus officia maiores.
                     </p>
                 </div>
@@ -77,7 +77,7 @@
                         <div class="blog-item">
                             <div class="blog-img">
                                 <div class="blog-img-inner">
-                                    <img class="img-fluid w-100 rounded-top" src="{{ asset('customer/img/blog-1.jpg') }}" alt="Static Placeholder Image">
+                                    <img class="img-fluid w-100 rounded-top" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->title }}">
                                     <div class="blog-icon">
                                         <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
                                     </div>

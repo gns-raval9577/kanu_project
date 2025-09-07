@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -13,13 +14,13 @@ class ProductController extends Controller
         $products = Product::latest()->paginate(10);
         return view('admin.products.index', compact('products'));
     }
+
     public function product()
     {
         $products = Product::latest()->paginate(10);
-        // dd($products);
+
         return view('customer.product', compact('products'));
     }
-
 
     public function create()
     {
@@ -28,12 +29,17 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'image.dimensions' => 'The image must be exactly 400 pixels wide and 300 pixels tall.',
+        ];
+
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'description' => 'nullable|string|min:350|max:370',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048|dimensions:width=400,height=300',
             'status' => 'nullable|boolean',
-        ]);
+        ], $messages);
+
         $data['status'] = $request->boolean('status');
 
         if ($request->hasFile('image')) {
@@ -51,12 +57,17 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
+        $messages = [
+            'image.dimensions' => 'The image must be exactly 400 pixels wide and 300 pixels tall.',
+        ];
+
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'description' => 'nullable|string|min:350|max:370',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048|dimensions:width=400,height=300',
             'status' => 'nullable|boolean',
-        ]);
+        ], $messages);
+
         $data['status'] = $request->boolean('status');
 
         if ($request->hasFile('image')) {
