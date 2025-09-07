@@ -24,9 +24,7 @@
                             <h4 class="mb-4 text-white">Company</h4>
                             <a href=""><i class="fas fa-angle-right me-2"></i> About</a>
                             <a href="{{ route('privacy.policy') }}"><i class="fas fa-angle-right me-2"></i> Privacy Policy</a>
-                            <a href=""><i class="fas fa-angle-right me-2"></i> Blog</a>
-                            <a href=""><i class="fas fa-angle-right me-2"></i> Service</a>
-                            <a href=""><i class="fas fa-angle-right me-2"></i> Contact</a>
+                            <a href="{{ route('testimonial') }}"><i class="fas fa-angle-right me-2"></i> Testimonial</a>
                             <a href="{{ route('terms.conditions') }}"><i class="fas fa-angle-right me-2"></i> Terms and Conditions</a>
                         </div>
                     </div>

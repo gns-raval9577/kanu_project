@@ -30,7 +30,7 @@ class TestimonialController extends Controller
     {
         $request->validate([
             'name'   => 'required|string|max:255',
-            'commite' => 'required|string',
+            'commite' => 'required|string|min:50|max:300',
             'status'  => 'nullable|boolean',
         ]);
 
@@ -51,7 +51,7 @@ class TestimonialController extends Controller
     {
         $request->validate([
             'name'    => 'required|string|max:255',
-            'commite' => 'required|string',
+            'commite' => 'required|string|min:50|max:300',
             'status'  => 'nullable|boolean',
         ]);
 
