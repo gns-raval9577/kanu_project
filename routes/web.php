@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProjectGalleryController;
 
 Route::get('/', function () {
     return view('customer.home');
@@ -87,9 +88,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::patch('testimonials/{testimonial}/toggle-status', [TestimonialController::class, 'toggleStatus'])
         ->name('testimonials.toggle-status');
 
-    Route::resource('galleries', GalleryController::class);
-    Route::patch('galleries/{gallery}/toggle-status', [GalleryController::class, 'toggleStatus'])
-        ->name('galleries.toggle-status');
+
+    Route::resource('projectgallery', ProjectGalleryController::class);
+    Route::patch('projectgallery/{projectgallery}/toggle-status', [ProjectGalleryController::class, 'toggleStatus'])->name('projectgallery.toggle-status');
+    Route::delete('projectgallery/image/{image}', [ProjectGalleryController::class, 'deleteImage'])->name('projectgallery.image.delete');
 });
 
 Route::middleware('auth')->group(function () {

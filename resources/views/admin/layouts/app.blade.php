@@ -42,9 +42,9 @@
            Testimonials
         </a>
 
-        <a href="{{ route('admin.galleries.index') }}" 
-           class="block py-2 px-4 rounded hover:bg-gray-200 {{ request()->routeIs('admin.galleries.*') ? 'bg-purple-100 font-semibold text-purple-700' : '' }}">
-           Gallery
+        <a href="{{ route('admin.projectgallery.index') }}" 
+           class="block py-2 px-4 rounded hover:bg-gray-200 {{ request()->routeIs('admin.projectgallery.*') ? 'bg-purple-100 font-semibold text-purple-700' : '' }}">
+           Project Galleries
         </a>
     </nav>
 </aside>
