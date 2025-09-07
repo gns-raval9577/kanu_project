@@ -26,6 +26,7 @@
       <label for="subimages" class="block font-medium mb-1">Sub Images (3-4 images)</label>
       <input type="file" name="subimages[]" id="subimages" accept="image/*" multiple
              class="w-full border border-gray-300 rounded px-3 py-2">
+      @error('subimages') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
       @error('subimages.*') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
     </div>
 

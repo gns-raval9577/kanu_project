@@ -25,7 +25,8 @@ class ProjectGalleryController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'main_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'subimages.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'subimages' => 'required|array|min:3|max:4',
+            'subimages.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
             'description' => 'nullable|string',
             'status' => 'nullable|boolean',
         ]);
@@ -51,7 +52,8 @@ class ProjectGalleryController extends Controller
     public function edit(ProjectGallery $projectgallery)
     {
         $projectgallery->load('images');
-        return view('admin.projectgallery.edit', compact('projectgallery'));
+        $subImages = $projectgallery->images;
+        return view('admin.projectgallery.edit', compact('projectgallery', 'subImages'));
     }
 
     public function update(Request $request, ProjectGallery $projectgallery)
@@ -59,7 +61,9 @@ class ProjectGalleryController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'main_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'subimages' => 'nullable|array|min:3|max:4',
             'subimages.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'kept_images' => 'nullable|array',
             'description' => 'nullable|string',
             'status' => 'nullable|boolean',
         ]);
@@ -75,13 +79,35 @@ class ProjectGalleryController extends Controller
 
         $projectgallery->update($data);
 
+        // Handle kept images: delete those not in the kept list
+        $keptImages = $request->input('kept_images', []);
+        $existingImages = $projectgallery->images()->pluck('id')->toArray();
+        $imagesToDelete = array_diff($existingImages, $keptImages);
+
+        foreach ($imagesToDelete as $imageId) {
+            $image = ProjectGalleryImage::find($imageId);
+            if ($image) {
+                if (Storage::disk('public')->exists($image->image)) {
+                    Storage::disk('public')->delete($image->image);
+                }
+                $image->delete();
+            }
+        }
+
+        // Add new subimages
         if ($request->hasFile('subimages')) {
             foreach ($request->file('subimages') as $image) {
                 $filePath = $image->store('uploads/projectgallery/subimages', 'public');
                 $projectgallery->images()->create([
-                        'image' => $filePath,
-                    ]);
+                    'image' => $filePath,
+                ]);
             }
+        }
+
+        // Validate total subimages count after update
+        $totalImages = $projectgallery->images()->count();
+        if ($totalImages < 3 || $totalImages > 4) {
+            return back()->withErrors(['subimages' => 'The gallery must have between 3 and 4 subimages.']);
         }
 
         return redirect()->route('admin.projectgallery.index')->with('success', 'Project gallery updated');
